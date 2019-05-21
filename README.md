@@ -6,11 +6,13 @@ For an old skool browsing experience, clone the repo and then
 
 `python -m http.server --directory=/path/to/html`
 
-or, using Electron, assuming it is in the path
+or, using Electron (assuming it is in the path)
 
 `electron .`
 
-In order to minmimize expectations, it should be made clear that this application simly shows how to glue various existing UI libraries together using Python that is transpiled to Javascript in the browser. Calling out to remote resources demonstrated via a Python connected websocket. It is a little large for a gist but with any luck may persuade and or inspire the reader to try a better way to work the web.
+In order to minimize expectations, it should be made clear that this application simly shows how to glue various existing UI libraries together using Python that is transpiled to Javascript in the browser. Calling out to remote resources demonstrated via a Python connected websocket. 
+
+With any luck may persuade and/or inspire the reader to try a better way to work the web.
 
 A very big hand to the good folk who provided the following:
 
