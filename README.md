@@ -19,5 +19,3 @@ A very big hand to the good folk who provided the following:
 1. https://github.com/brython-dev/brython
 2. https://github.com/vakata/jstree
 3. https://github.com/vitmalina/w2ui
-
-Thanks for listening.
