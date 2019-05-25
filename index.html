@@ -63,9 +63,18 @@
 	
 <script>
 
+// general purpose helper for debugging stubborn issues!
+// call this from python via document.js_dump()
+function js_dump(jsobj) {
+	console.log(jsobj);
+}
+
+//
 function main() {
 	// python application instance
 	document.pyapp = null;
+	// debug dumper
+	__BRYTHON__.js_dump = js_dump;
 	// run up the Python converter. This spins a webworker
 	// thread, returns a promise ...
 	brython({debug:1});

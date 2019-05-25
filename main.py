@@ -22,7 +22,7 @@
 #
 
 from browser import alert, document, window, websocket
-import json
+import json, javascript
 
 #----------------------------------------------------------
 # get global
@@ -31,14 +31,20 @@ def getGlobal():
 
 #----------------------------------------------------------
 # convert a generic JS object into a Python string
-def toString(jsObj):
-	#window.js_dump(jsObj)
+def toString(argname,jsObj):
+	window.js_dump(argname,jsObj)
+	return ""
+	if jsObj is javascript.UNDEFINED:
+		return "null"
 	if jsObj is None:
 		return "null"
 	props = {}
 	for k,v in enumerate(jsObj):
-		if jsObj[v] is not None:
-			props[v] = jsObj[v]
+		if k is javascript.UNDEFINED or v is javascript.UNDEFINED:
+			continue
+		if jsObj[v] is javascript.UNDEFINED:
+			continue
+		props[v] = jsObj[v]
 	return str(props)
 
 #----------------------------------------------------------
@@ -90,7 +96,9 @@ class Application:
 		self.ui['layout_top_toolbar'].enable('btnDisconnect')
 
 	def on_message(self,evt):
-		print(evt.data)
+		#
+		getGlobal().js_dump(evt)
+		#
 		self.grid.add({ 'recid': self.grid.total, 'directory' : evt.data })
 		if self.grid.total > 0:
 			self.ui['layout_top_toolbar'].enable('btnClear')
@@ -105,7 +113,6 @@ class Application:
 
 	# handle opening and binding of the socket
 	def openSocket(self):
-		print("openSocket")
 		if not websocket.supported:
 			alert("WebSocket is not supported by your browser")
 			return
@@ -121,11 +128,8 @@ class Application:
 
 	# set socket to close
 	def closeSocket(self):
-		print("closeSocket")
 		if self.state == eConnected or self.state == eConnecting:
-			# console.log("closing {0}".format(self.state))
 			self.webSocket.close()
-			# self.state = eDisconnected
 
 	# event handlers
 	def onClickConnect(self,evt):
@@ -142,7 +146,8 @@ class Application:
 		self.grid.clear()
 
 	def onClickTree(self,evt,data):
-		# print(data.node.text)
+		# getGlobal().js_dump(evt)
+		# getGlobal().js_dump(data)
 		if self.state == eConnected:
 			self.webSocket.send(data.node.text)
 		
@@ -153,7 +158,7 @@ w2layoutDefinition = {
 		'padding': 8,
 		'panels': [
 			# { type: 'left', size: '16px', style: "background-color: rgb(255,255,255);" },
-			{ 'type': 'top', 'size': 24, 'style': 'background-color: rgb(255,255,255);',
+			{ 'type': 'top', 'size': 24, 'style': 'border: none, background-color: rgb(255,255,255);',
 				'toolbar': 
 				{
 					'name': 'toolbar',
@@ -169,10 +174,10 @@ w2layoutDefinition = {
 				},
 			},
 			{ 
-				'type': 'left', 'resizable': True, 'size': '25%', 'content': '<div style="background-color: rgb(255,255,255); border:8px;"; id="jstree_container"></div>', 'style': "background-color: rgb(255,255,255);",
+				'type': 'left', 'resizable': True, 'size': '25%', 'content': '<div style="border:none, background-color: rgb(255,255,255); border:2px;"; id="jstree_container"></div>', 'style': "border: 1px; background-color: rgb(255,255,255);",
 			},
 			{ 
-				'type': 'main', 'minSize': 100, 'content': 'content'	
+				'type': 'main', 'style': "border:none, background-color: rgb(255,255,255);", 'minSize': 100, 'content': 'content'	
 				},
 			# { 'type': 'preview',  'size': '50%', 'resizable': True, 'content': '<div style="height: 100%; width: 100%, background-color: rgb(255,255,255);" id="canvas-holder"><canvas id="bar-chart"></canvas></div>',  style: "background-color: rgb(255,255,255);" },
 			{ 'type': 'right', 'size': '16px', 'style': "background-color: rgb(255,255,255);"  },
@@ -210,11 +215,31 @@ gridDefinition = {
 	},
 	'columns': [
 			# { field: 'recid', caption: 'ID', size: '50px', sortable: false, attr: 'align=left' },
-			{ 'field': 'directory', 'caption': 'Directory', 'size': '30%', 'sortable': True, 'resizable': True },
+			{ 'field': 'c1', 'caption': 'I', 'size': '8%', 'w2ui' : { 'style': "1 : background-color: #00007F;"}, 'resizable': False  },
+			{ 'field': 'c2', 'caption': 'II', 'size': '8%', 'sortable': False, 'resizable': False },
+			{ 'field': 'c3', 'caption': 'III', 'size': '8%', 'sortable': False, 'resizable': False },
+			{ 'field': 'c4', 'caption': 'IV', 'size': '8%', 'sortable': False, 'resizable': False },
+			{ 'field': 'c5', 'caption': 'V', 'size': '8%', 'sortable': False, 'resizable': False },
+			{ 'field': 'c6', 'caption': 'VI', 'size': '8%', 'sortable': False, 'resizable': False },
+			{ 'field': 'c7', 'caption': 'VII', 'size': '8%', 'sortable': False, 'resizable': False },
+			{ 'field': 'c8', 'caption': 'VIII', 'size': '8%', 'sortable': False, 'resizable': False },
+			{ 'field': 'c9', 'caption': 'IX', 'size': '8%', 'sortable': False, 'resizable': False },
+			{ 'field': 'c10', 'caption': 'X', 'size': '8%', 'sortable': False, 'resizable': False },
+			{ 'field': 'c11', 'caption': 'XI', 'size': '8%', 'sortable': False, 'resizable': False },
+			{ 'field': 'c12', 'caption': 'XII', 'size': '8%', 'sortable': False, 'resizable': False },
 	],
 	'records': [
 			# it's possible to add literals as shown below
-			# { 'recid': 1, 'directory': 'alpha', },
+			{ 'recid': 1, 'c1': 'CMaj', 'c2': 'C#Maj', 'c3': 'DMaj', 'c4': 'EbMaj', 'c5': 'EMaj', 'c6': 'FMaj', 'c7': 'F#Maj', 'c8': 'GMaj', 'c9': 'AbMaj', 'c10': 'AMaj', 'c11': 'BbMaj', 'c12': 'BMaj'  },
+			{ 'recid': 4, 'c1': 'CMaj7', },
+			{ 'recid': 5, 'c1': 'CMaj7', },
+			{ 'recid': 6, 'c1': 'CMin', },
+			{ 'recid': 7, 'c1': 'CMin7', },
+			{ 'recid': 8, 'c1': 'CSus4', },
+			{ 'recid': 9, 'c1': 'C', 'w2ui': { "style": "background-color:red" }, 'c2': 'C#', 'w2ui': { "style": "background-color: white" }  },
+			#{ 'recid': 3, 'c1': 'CMaj7', },
+			#{ 'recid': 4, 'c1': 'CSus4', },
+			#{ 'recid': 5, 'c1': 'C', },
 		]
 	}
 
@@ -229,5 +254,8 @@ window.w2ui.layout.content('main', grid)
 # set up the global application instance
 document.pyapp = Application("wss://echo.websocket.org",window.w2ui,grid,tree)
 # ensure grid and friends are refreshed
-# grid.refresh()
-
+grid.refresh()
+#
+r5 = grid.get(5)
+#
+getGlobal().js_dump(r5)
