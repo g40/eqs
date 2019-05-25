@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>W2UI Demo: grid-1</title>
+    <script src=http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js></script>
+    <script type=text/javascript src="http://rawgit.com/vitmalina/w2ui/master/dist/w2ui.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="http://rawgit.com/vitmalina/w2ui/master/dist/w2ui.min.css" />
+</head>
+<body>
+
+<div id="grid" style="width: 50%; height: 350px;"></div>
+
+<script type="text/javascript">
+$(function () {
+    $('#grid').w2grid({ 
+        name: 'grid', 
+        method: 'GET', // need this to avoid 412 error on Safari
+        columns: [                
+            { field: 'fname', text: 'First Name', size: '30%' },
+            { field: 'lname', text: 'Last Name', size: '30%' },
+            { field: 'email', text: 'Email', size: '40%',
+                // based on http://w2ui.com/web/demos/#!grid/grid-23
+                // the problem here is that it is not the TD that gets styled
+                // but the internal div ... 
+                //render: function (record, index, column_index) {
+                //    var html = '<div style="background-color:#7F7F7F;">'+ record.email + '</div>';
+                //    return html; } 
+            },
+            { field: 'sdate', text: 'Start Date', size: '120px' }
+        ],
+        records: [
+        { recid: 1, 
+            // default styling for reference
+            fname: "John", lname: "Doe", email: "jdoe@gmail.com", sdate: "4/3/2012"
+        },
+        { recid: 2, 
+            // based on http://w2ui.com/web/demos/#!grid/grid-2
+            // this works. entire row is blue text on red
+            w2ui: { style: "background-color:red; color:blue;" },
+            // https://stackoverflow.com/questions/38696758/add-custom-color-to-w2ui-cell-grid
+            //w2ui: { style: "2:background-color:black;" },
+            fname: "John", lname: "Two", email: "j2@gmail.com", sdate: "4/3/2012"
+        },
+        ]
+
+    });    
+});
+</script>
+
+</body>
+</html>
