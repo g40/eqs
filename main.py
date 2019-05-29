@@ -236,7 +236,7 @@ gridDefinition = {
 			{ 'recid': 6, 'c1': 'CMin', },
 			{ 'recid': 7, 'c1': 'CMin7', },
 			{ 'recid': 8, 'c1': 'CSus4', },
-			{ 'recid': 9, 'c1': 'C', 'w2ui': { "style": "background-color:red" }, 'c2': 'C#', 'w2ui': { "style": "background-color: white" }  },
+			{ 'w2ui': { 'style': { 1: 'background-color:red;', 2: 'background-color:green;'} }, 'recid': 9, 'c1': 'C', 'c2': 'C#', },
 			#{ 'recid': 3, 'c1': 'CMaj7', },
 			#{ 'recid': 4, 'c1': 'CSus4', },
 			#{ 'recid': 5, 'c1': 'C', },
