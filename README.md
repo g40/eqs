@@ -10,7 +10,7 @@ or, using Electron (assuming it is in the path)
 
 `electron .`
 
-In order to minimize expectations, it should be made clear that this application simly shows how to glue various existing UI libraries together using Python that is transpiled to Javascript in the browser. Calling out to remote resources demonstrated via a Python connected websocket. 
+In order to minimize expectations, it should be made clear that this application simply shows how to glue various existing UI libraries together using Python that is transpiled to Javascript in the browser. Calling out to remote resources demonstrated via a Python connected websocket. 
 
 With any luck may persuade and/or inspire the reader to try a better way to work the web.
 
