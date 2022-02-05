@@ -1,5 +1,7 @@
 # eqs
 
+N.B. More or less obsolete with the demise of echo.websocket.org which means the interactive asects of this demonstration no longer work.
+
 Python powered in-browser SPA using Brython, w2ui and jstree.
 
 For an old skool browsing experience, clone the repo and then
